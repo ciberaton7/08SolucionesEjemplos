@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solucionario: POO en C#</title>
+    <style>
+        body {
+            margin: 0; padding: 0; background-color: #121212; color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; 
+        }
+        .slide {
+            display: none; 
+            flex-direction: column; justify-content: center; align-items: center;
+            height: 100vh; width: 100vw; box-sizing: border-box; padding: 20px;
+        }
+        .title-container { text-align: center; max-width: 900px; }
+        .title-container h1 { color: #61dafb; font-size: 3.5rem; margin-bottom: 10px; line-height: 1.2; }
+        .title-container h2 { color: #a0a0a0; font-size: 1.8rem; font-weight: 300; }
+        
+        .split {
+            display: flex; flex-direction: row; width: 95%; max-width: 1500px;
+            height: 85vh; gap: 40px; align-items: center;
+        }
+        .left { flex: 1; padding-right: 20px; overflow-y: auto; max-height: 80vh; }
+        .left h2 { color: #61dafb; font-size: 2.5rem; margin-top: 0; margin-bottom: 15px;}
+        .left p, .left li { font-size: 1.3rem; line-height: 1.6; color: #e0e0e0; margin-bottom: 15px; }
+        .left ul { margin-top: 10px; }
+        
+        /* Simulación del entorno de Visual Studio 2022 Dark Theme */
+        .right {
+            flex: 1.3; background: #1e1e1e; border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid #333;
+            overflow: hidden; display: flex; flex-direction: column;
+            max-height: 80vh;
+        }
+        .vs-tabs {
+            background: #2d2d2d; padding: 10px 15px; border-bottom: 1px solid #1e1e1e;
+            font-size: 1rem; color: #969696; font-family: 'Segoe UI', sans-serif;
+            display: flex; gap: 10px;
+        }
+        .vs-tab {
+            background: #1e1e1e; padding: 5px 15px; border-top-left-radius: 5px; border-top-right-radius: 5px;
+            color: #d4d4d4; border-top: 2px solid #007acc;
+        }
+        pre {
+            margin: 0; font-family: 'Consolas', 'Courier New', monospace; font-size: 1.15rem;
+            color: #d4d4d4; white-space: pre-wrap; line-height: 1.5; padding: 20px;
+            overflow-y: auto;
+        }
+        
+        /* Colores exactos de Visual Studio */
+        .kw { color: #569cd6; } /* Keywords (public, class, void, namespace, string, int) */
+        .ctrl { color: #c586c0; } /* Control flow (if, else, return) */
+        .typ { color: #4ec9b0; } /* Types / Classes */
+        .cmt { color: #6a9955; } /* Comments */
+        .str { color: #ce9178; } /* Strings */
+        .num { color: #b5cea8; } /* Numbers */
+        .fnc { color: #dcdcaa; } /* Functions / Methods */
+        .var { color: #9cdcfe; } /* Variables / Parameters */
+        
+        #controls {
+            position: fixed; bottom: 20px; right: 30px; font-size: 1.2rem; color: #888;
+            background: rgba(0,0,0,0.7); padding: 5px 15px; border-radius: 20px;
+        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #1e1e1e; }
+        ::-webkit-scrollbar-thumb { background: #424242; }
+        ::-webkit-scrollbar-thumb:hover { background: #4f4f4f; }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA -->
+    <div class="slide">
+        <div class="title-container">
+            <h1>Solucionario Oficial</h1>
+            <h2>Ejercicios de Programación Orientada a Objetos en C#</h2>
+            <p style="color: #666; margin-top: 50px; font-style: italic;">(Avanza usando las flechas de tu teclado)</p>
+        </div>
+    </div>
+
+    <!-- 1. SOLUCIÓN MODULARIDAD BÁSICA -->
+    <div class="slide">
+        <div class="split">
+            <div class="left">
+                <h2>Solución: Modularidad (Básico)</h2>
+                <p><strong>El Reto:</strong> Crear un namespace <code>Geometria</code>, con una clase <code>Cuadrado</code> y utilizarla en el <code>Program.cs</code>.</p>
+                <p><strong>Análisis para el estudiante:</strong> Observen cómo el uso del <code>namespace</code> aísla nuestra clase. Si otra persona crea otra clase llamada <code>Cuadrado</code> en otra carpeta, no habrá conflictos porque nuestro cuadrado vive exclusivamente dentro de <code>Matematicas.Geometria</code>.</p>
+            </div>
+            <div class="right">
+                <div class="vs-tabs"><div class="vs-tab">Geometria.cs</div><div class="vs-tab">Program.cs</div></div>
+                <pre><span class="cmt">// --- Archivo: Geometria.cs ---</span>
+<span class="kw">namespace</span> <span class="typ">Matematicas.Geometria</span>
+{
+    <span class="kw">public class</span> <span class="typ">Cuadrado</span> 
+    {
+        <span class="cmt">// Método público que recibe el lado y retorna el área</span>
+        <span class="kw">public double</span> <span class="fnc">CalcularArea</span>(<span class="kw">double</span> <span class="var">lado</span>) 
+        {
+            <span class="ctrl">return</span> <span class="var">lado</span> * <span class="var">lado</span>;
+        }
+    }
+}
+
+<span class="cmt">// --- Archivo: Program.cs ---</span>
+<span class="cmt">// Importamos el módulo para que C# sepa dónde buscar</span>
+<span class="kw">using</span> <span class="typ">Matematicas.Geometria</span>;
+
+<span class="kw">class</span> <span class="typ">Program</span>
+{
+    <span class="kw">static void</span> <span class="fnc">Main</span>()
+    {
+        <span class="cmt">// Instanciamos la clase de nuestro módulo</span>
+        <span class="typ">Cuadrado</span> <span class="var">miCuadrado</span> = <span class="kw">new</span> <span class="typ">Cuadrado</span>();
+        <span class="kw">double</span> <span class="var">resultado</span> = <span class="var">miCuadrado</span>.<span class="fnc">CalcularArea</span>(<span class="num">5.5</span>);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. SOLUCIÓN MODULARIDAD COMPLEJA -->
+    <div class="slide">
+        <div class="split">
+            <div class="left">
+                <h2>Solución: Modularidad (Complejo)</h2>
+                <p><strong>El Reto:</strong> Separar la lógica universitaria en módulos de <code>Academico</code> y <code>Usuarios</code>, e interactuar con ambos.</p>
+                <p><strong>Análisis para el estudiante:</strong> Aquí vemos una simulación real de arquitectura de software. Pasamos el objeto <code>Materia</code> (que pertenece a un módulo) como parámetro al método de un <code>Docente</code> (que pertenece a otro módulo diferente). El <code>Main</code> actúa como el coordinador central.</p>
+            </div>
+            <div class="right">
+                <div class="vs-tabs"><div class="vs-tab">Sistema.cs</div><div class="vs-tab">Program.cs</div></div>
+                <pre><span class="cmt">// --- Archivo: Sistema.cs ---</span>
+<span class="kw">namespace</span> <span class="typ">Unifranz.Academico</span>
+{
+    <span class="kw">public class</span> <span class="typ">Materia</span> {
+        <span class="kw">public string</span> <span class="var">Nombre</span>;
+    }
+}
+
+<span class="kw">namespace</span> <span class="typ">Unifranz.Usuarios</span>
+{
+    <span class="cmt">// Necesitamos importar Academico para que el Docente</span>
+    <span class="cmt">// reconozca el tipo de dato "Materia"</span>
+    <span class="kw">using</span> <span class="typ">Unifranz.Academico</span>;
+
+    <span class="kw">public class</span> <span class="typ">Docente</span> {
+        <span class="kw">public void</span> <span class="fnc">AsignarNota</span>(<span class="typ">Materia</span> <span class="var">m</span>, <span class="kw">int</span> <span class="var">nota</span>) {
+            Console.<span class="fnc">WriteLine</span>(<span class="str">$"Nota {nota} subida a {m.Nombre}"</span>);
+        }
+    }
+}
+
+<span class="cmt">// --- Archivo: Program.cs ---</span>
+<span class="kw">using</span> <span class="typ">Unifranz.Academico</span>;
+<span class="kw">using</span> <span class="typ">Unifranz.Usuarios</span>;
+
+<span class="kw">class</span> <span class="typ">Program</span> {
+    <span class="kw">static void</span> <span class="fnc">Main</span>() {
+        <span class="typ">Materia</span> <span class="var">prog</span> = <span class="kw">new</span> <span class="typ">Materia</span>() { Nombre = <span class="str">"Programación"</span> };
+        <span class="typ">Docente</span> <span class="var">profe</span> = <span class="kw">new</span> <span class="typ">Docente</span>();
+        <span class="var">profe</span>.<span class="fnc">AsignarNota</span>(<span class="var">prog</span>, <span class="num">100</span>);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. SOLUCIÓN MODIFICADORES BÁSICO -->
+    <div class="slide">
+        <div class="split">
+            <div class="left">
+                <h2>Solución: Modificadores (Básico)</h2>
+                <p><strong>El Reto:</strong> Clase <code>Termometro</code> con propiedad privada y validación en el bloque <code>set</code> (cero absoluto).</p>
+                <p><strong>Análisis para el estudiante:</strong> Esta es la esencia del Encapsulamiento. Noten cómo la variable <code>_temperatura</code> lleva un guion bajo por convención (para variables privadas). La Propiedad pública actúa como el filtro de seguridad gracias a su <code>if</code> y a la palabra mágica <code>value</code>.</p>
+            </div>
+            <div class="right">
+                <div class="vs-tabs"><div class="vs-tab">Termometro.cs</div></div>
+                <pre><span class="kw">public class</span> <span class="typ">Termometro</span>
+{
+    <span class="cmt">// La variable real donde se guarda el dato (Protegida)</span>
+    <span class="kw">private double</span> <span class="var">_temperatura</span>;
+
+    <span class="cmt">// La Propiedad pública por donde el usuario ingresa el dato</span>
+    <span class="kw">public double</span> <span class="var">Temperatura</span>
+    {
+        <span class="kw">get</span> 
+        { 
+            <span class="cmt">// Retornamos el valor real</span>
+            <span class="ctrl">return</span> <span class="var">_temperatura</span>; 
+        }
+        <span class="kw">set</span> 
+        { 
+            <span class="cmt">// 'value' representa lo que se intentó guardar desde el Main</span>
+            <span class="cmt">// Validamos que no viole las leyes físicas (-273.15 °C)</span>
+            <span class="ctrl">if</span> (<span class="var">value</span> >= -<span class="num">273</span>)
+            {
+                <span class="var">_temperatura</span> = <span class="var">value</span>; <span class="cmt">// Autorizado</span>
+            }
+            <span class="ctrl">else</span>
+            {
+                Console.<span class="fnc">WriteLine</span>(<span class="str">"Error: Inferior al cero absoluto."</span>);
+            }
+        }
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. SOLUCIÓN MODIFICADORES COMPLEJO -->
+    <div class="slide">
+        <div class="split">
+            <div class="left">
+                <h2>Solución: Modificadores (Complejo)</h2>
+                <p><strong>El Reto:</strong> Clase <code>UsuarioPlataforma</code> con cambio de contraseña seguro.</p>
+                <p><strong>Análisis para el estudiante:</strong> A veces, no usamos Propiedades (get/set) para todo. Para contraseñas, no queremos un <code>get</code> público que permita a cualquiera leer la clave. Usamos un método explícito (<code>CambiarClave</code>) que exige un proceso lógico (validación cruzada) antes de alterar el dato privado.</p>
+            </div>
+            <div class="right">
+                <div class="vs-tabs"><div class="vs-tab">UsuarioPlataforma.cs</div></div>
+                <pre><span class="kw">public class</span> <span class="typ">UsuarioPlataforma</span>
+{
+    <span class="kw">public string</span> <span class="var">Correo</span> { <span class="kw">get</span>; <span class="kw">set</span>; } <span class="cmt">// Propiedad automática</span>
+    
+    <span class="cmt">// La contraseña es estrictamente privada. No hay 'get' público.</span>
+    <span class="kw">private string</span> <span class="var">_password</span>;
+
+    <span class="cmt">// Constructor: Así le damos una clave inicial al nacer</span>
+    <span class="kw">public</span> <span class="fnc">UsuarioPlataforma</span>(<span class="kw">string</span> <span class="var">claveInicial</span>)
+    {
+        <span class="var">_password</span> = <span class="var">claveInicial</span>;
+    }
+
+    <span class="cmt">// Método seguro para alterar el estado interno</span>
+    <span class="kw">public void</span> <span class="fnc">CambiarClave</span>(<span class="kw">string</span> <span class="var">claveAntigua</span>, <span class="kw">string</span> <span class="var">claveNueva</span>)
+    {
+        <span class="cmt">// Comparamos la clave que ingresó el usuario con la real</span>
+        <span class="ctrl">if</span> (<span class="var">claveAntigua</span> == <span class="kw">this</span>.<span class="var">_password</span>)
+        {
+            <span class="kw">this</span>.<span class="var">_password</span> = <span class="var">claveNueva</span>;
+            Console.<span class="fnc">WriteLine</span>(<span class="str">"Clave actualizada con éxito en la BD."</span>);
+        }
+        <span class="ctrl">else</span>
+        {
+            Console.<span class="fnc">WriteLine</span>(<span class="str">"Operación denegada: Clave incorrecta."</span>);
+        }
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. SOLUCIÓN HERENCIA BÁSICA -->
+    <div class="slide">
+        <div class="split">
+            <div class="left">
+                <h2>Solución: Herencia (Básico)</h2>
+                <p><strong>El Reto:</strong> Clase base <code>Electrodomestico</code> y clases hijas (<code>Refrigerador</code>, <code>Licuadora</code>).</p>
+                <p><strong>Análisis para el estudiante:</strong> Fíjense en la eficiencia del código. Escribimos el código de encendido una sola vez en el padre, pero ambas clases hijas lo saben usar a la perfección. Es el principio de la reutilización (Don't Repeat Yourself).</p>
+            </div>
+            <div class="right">
+                <div class="vs-tabs"><div class="vs-tab">Electrodomesticos.cs</div></div>
+                <pre><span class="cmt">// Clase Padre (Base)</span>
+<span class="kw">public class</span> <span class="typ">Electrodomestico</span>
+{
+    <span class="kw">public string</span> <span class="var">Marca</span> { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public int</span> <span class="var">ConsumoWatts</span> { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public void</span> <span class="fnc">Encender</span>()
+    {
+        Console.<span class="fnc">WriteLine</span>(<span class="str">$"Encendiendo equipo {Marca}..."</span>);
+    }
+}
+
+<span class="cmt">// Clase Hija 1: Absorbe todo y añade su propiedad de frío</span>
+<span class="kw">public class</span> <span class="typ">Refrigerador</span> : <span class="typ">Electrodomestico</span>
+{
+    <span class="kw">public double</span> <span class="var">TemperaturaMinima</span> { <span class="kw">get</span>; <span class="kw">set</span>; }
+}
+
+<span class="cmt">// Clase Hija 2: Absorbe todo y añade su propiedad de motor</span>
+<span class="kw">public class</span> <span class="typ">Licuadora</span> : <span class="typ">Electrodomestico</span>
+{
+    <span class="kw">public int</span> <span class="var">Velocidades</span> { <span class="kw">get</span>; <span class="kw">set</span>; }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. SOLUCIÓN HERENCIA COMPLEJA -->
+    <div class="slide">
+        <div class="split">
+            <div class="left">
+                <h2>Solución: Herencia (Complejo)</h2>
+                <p><strong>El Reto:</strong> Nóminas. Clase <code>Empleado</code>. Clase <code>Vendedor</code> usa <code>base</code> y <code>override</code>.</p>
+                <p><strong>Análisis para el estudiante:</strong> Este es un diseño arquitectónico completo. El constructor de <code>Vendedor</code> necesita pedir 3 datos, pero delega dos de ellos hacia arriba usando <code>: base()</code>. Luego, usa <code>override</code> para aplicar la matemática de la comisión, sobreescribiendo el método <code>virtual</code> del padre.</p>
+            </div>
+            <div class="right">
+                <div class="vs-tabs"><div class="vs-tab">Planilla.cs</div></div>
+                <pre><span class="kw">public class</span> <span class="typ">Empleado</span>
+{
+    <span class="kw">public string</span> <span class="var">Nombre</span>;
+    <span class="kw">protected double</span> <span class="var">SalarioBase</span>; <span class="cmt">// Protected: visible para hijas</span>
+
+    <span class="kw">public</span> <span class="fnc">Empleado</span>(<span class="kw">string</span> <span class="var">nom</span>, <span class="kw">double</span> <span class="var">salario</span>) { 
+        <span class="var">Nombre</span> = <span class="var">nom</span>; <span class="var">SalarioBase</span> = <span class="var">salario</span>; 
+    }
+
+    <span class="cmt">// "virtual" permite que los hijos alteren este cálculo</span>
+    <span class="kw">public virtual double</span> <span class="fnc">CalcularPagoMensual</span>() {
+        <span class="ctrl">return</span> <span class="var">SalarioBase</span>;
+    }
+}
+
+<span class="kw">public class</span> <span class="typ">Vendedor</span> : <span class="typ">Empleado</span>
+{
+    <span class="kw">public double</span> <span class="var">MontoVentas</span>;
+
+    <span class="cmt">// Pasamos 'nom' y 'sal' hacia el constructor padre</span>
+    <span class="kw">public</span> <span class="fnc">Vendedor</span>(<span class="kw">string</span> <span class="var">nom</span>, <span class="kw">double</span> <span class="var">sal</span>, <span class="kw">double</span> <span class="var">ventas</span>) : <span class="kw">base</span>(<span class="var">nom</span>, <span class="var">sal</span>) 
+    {
+        <span class="var">MontoVentas</span> = <span class="var">ventas</span>;
+    }
+
+    <span class="cmt">// "override" para cambiar la fórmula (añadir 10% comisión)</span>
+    <span class="kw">public override double</span> <span class="fnc">CalcularPagoMensual</span>() {
+        <span class="ctrl">return</span> <span class="var">SalarioBase</span> + (<span class="var">MontoVentas</span> * <span class="num">0.10</span>);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. SOLUCIÓN ABSTRACCIÓN -->
+    <div class="slide">
+        <div class="split">
+            <div class="left">
+                <h2>Solución: Abstracción</h2>
+                <p><strong>El Reto:</strong> Clase abstracta <code>Animal</code>. Método concreto <code>Dormir()</code>. Método abstracto <code>HacerSonido()</code>.</p>
+                <p><strong>Análisis para el estudiante:</strong> Observen el método <code>HacerSonido();</code> en la clase base. ¡No tiene llaves! Es un mandato. Obliga a que tanto el Gato como el Perro abran sus propias llaves en la parte inferior y escriban la implementación.</p>
+            </div>
+            <div class="right">
+                <div class="vs-tabs"><div class="vs-tab">Fauna.cs</div></div>
+                <pre><span class="cmt">// Plantilla base. No se puede instanciar con 'new'</span>
+<span class="kw">public abstract class</span> <span class="typ">Animal</span>
+{
+    <span class="cmt">// Código real compartido por todos los animales</span>
+    <span class="kw">public void</span> <span class="fnc">Dormir</span>()
+    {
+        Console.<span class="fnc">WriteLine</span>(<span class="str">"Zzz..."</span>);
+    }
+
+    <span class="cmt">// Contrato obligatorio para cada especie. (Termina en ;)</span>
+    <span class="kw">public abstract void</span> <span class="fnc">HacerSonido</span>();
+}
+
+<span class="kw">public class</span> <span class="typ">Perro</span> : <span class="typ">Animal</span>
+{
+    <span class="cmt">// El compilador exige usar override aquí</span>
+    <span class="kw">public override void</span> <span class="fnc">HacerSonido</span>()
+    {
+        Console.<span class="fnc">WriteLine</span>(<span class="str">"Guau! Guau!"</span>);
+    }
+}
+
+<span class="kw">public class</span> <span class="typ">Gato</span> : <span class="typ">Animal</span>
+{
+    <span class="kw">public override void</span> <span class="fnc">HacerSonido</span>()
+    {
+        Console.<span class="fnc">WriteLine</span>(<span class="str">"Miau..."</span>);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. SOLUCIÓN INTERFACES (RETO FINAL) -->
+    <div class="slide">
+        <div class="split">
+            <div class="left">
+                <h2>Solución: Interfaces (Reto Final)</h2>
+                <p><strong>El Reto:</strong> Interfaz <code>IGuardable</code> implementada por clases dispares (DB y Archivo).</p>
+                <p><strong>Análisis para el estudiante:</strong> Esta es la cima de la arquitectura en C#. Una Interfaz jamás tiene modificadores <code>public</code> adentro de ella. Simplemente firma el "Qué". Abajo, las dos clases son radicalmente distintas, pero ambas <em>cumplen el contrato</em> de guardado.</p>
+            </div>
+            <div class="right">
+                <div class="vs-tabs"><div class="vs-tab">Persistencia.cs</div></div>
+                <pre><span class="cmt">// El Contrato Maestro</span>
+<span class="kw">public interface</span> <span class="typ">IGuardable</span>
+{
+    <span class="cmt">// Ni public, ni virtual, ni cuerpo. Solo la firma.</span>
+    <span class="kw">void</span> <span class="fnc">GuardarDatos</span>(<span class="kw">string</span> <span class="var">informacion</span>);
+}
+
+<span class="cmt">// Clase de Servidor que firma el contrato</span>
+<span class="kw">public class</span> <span class="typ">BaseDeDatos</span> : <span class="typ">IGuardable</span>
+{
+    <span class="kw">public void</span> <span class="fnc">GuardarDatos</span>(<span class="kw">string</span> <span class="var">informacion</span>)
+    {
+        Console.<span class="fnc">WriteLine</span>(<span class="str">$"Generando Query SQL para: {informacion}"</span>);
+        Console.<span class="fnc">WriteLine</span>(<span class="str">"Conectando al servidor y guardando..."</span>);
+    }
+}
+
+<span class="cmt">// Clase Local que también firma el contrato</span>
+<span class="kw">public class</span> <span class="typ">ArchivoTexto</span> : <span class="typ">IGuardable</span>
+{
+    <span class="kw">public void</span> <span class="fnc">GuardarDatos</span>(<span class="kw">string</span> <span class="var">informacion</span>)
+    {
+        Console.<span class="fnc">WriteLine</span>(<span class="str">$"Abriendo log.txt..."</span>);
+        Console.<span class="fnc">WriteLine</span>(<span class="str">$"Escribiendo texto en disco: {informacion}"</span>);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- CIERRE -->
+    <div class="slide">
+        <div class="title-container">
+            <h1>¡Felicidades por completar el solucionario!</h1>
+            <h2>La práctica es la clave para dominar C#</h2>
+            <p style="color: #61dafb; font-size: 1.5rem; margin-top: 30px;">Si su código compiló sin errores rojos, ya piensan como ingenieros de software.</p>
+        </div>
+    </div>
+
+    <!-- Controles -->
+    <div id="controls">
+        Solución <span id="current">1</span> de <span id="total">?</span>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        document.getElementById('total').innerText = totalSlides;
+        
+        let currentSlide = 1;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.style.display = (index + 1 === currentSlide) ? 'flex' : 'none';
+            });
+            document.getElementById('current').innerText = currentSlide;
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+                if (currentSlide < totalSlides) {
+                    currentSlide++;
+                    updateSlide();
+                }
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                if (currentSlide > 1) {
+                    currentSlide--;
+                    updateSlide();
+                }
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (window.getSelection().toString().length > 0) return;
+            if (e.clientX > window.innerWidth * 0.7) {
+                if (currentSlide < totalSlides) { currentSlide++; updateSlide(); }
+            } else if (e.clientX < window.innerWidth * 0.3) {
+                if (currentSlide > 1) { currentSlide--; updateSlide(); }
+            }
+        });
+
+        window.onload = updateSlide;
+    </script>
+</body>
+</html>
